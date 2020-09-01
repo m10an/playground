@@ -1,2 +1,2 @@
-# helmets
-Segment and label helmets in video footage
+# Tabular Playground
+Practice my ML skills on this approachable dataset
