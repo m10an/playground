@@ -1,6 +1,4 @@
 train:
-  data: data/raw/train.csv
   test_size: 0.2
   const: 0.5
   seed: 42
-  output_scores: scores.json
