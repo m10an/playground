@@ -40,8 +40,12 @@ jobs:
 
       - name: Install packages
         run: |
+          echo "::group::Requirements"
           pip install -r requirements.txt
+          echo "::endgroup::"
+          echo "::group::Package"
           pip install -e .
+          echo "::endgroup::"
 
       - name: Data cache
         id: data-cache
