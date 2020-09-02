@@ -24,7 +24,7 @@ jobs:
       - name: Get pip cache dir
         id: get-pip-cache
         run: |
-          echo "::debug:: Using pip cache at $(pip cache dir)"
+          echo "::debug::Using pip cache at $(pip cache dir)"
           echo "::set-output name=dir::$(pip cache dir)"
 
       - name: Pip cache
@@ -42,6 +42,17 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install -e .
+
+      - name: Data cache
+        id: data-cache
+        uses: actions/cache@v2
+        with:
+          path: .dvc/cache
+          key: data-${{ hashFiles('data/**/*') }}
+
+      - name: Data cache check
+        if: steps.data-cache.outputs.cache-hit == 'true'
+        run: echo "Using cached data"
 
       - name: Pull data
         run: dvc pull
