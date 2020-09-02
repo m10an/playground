@@ -22,18 +22,21 @@ jobs:
           aws-region: eu-central-1
 
       - name: Get pip cache dir
-        id: pip-cache
+        id: get-pip-cache
         run: |
           echo "::debug:: Using pip cache at $(pip cache dir)"
           echo "::set-output name=dir::$(pip cache dir)"
 
       - name: Pip cache
+        id: pip-cache
         uses: actions/cache@v2
         with:
-          path: ${{ steps.pip-cache.outputs.dir }}
+          path: ${{ steps.get-pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+
+      - name: Pip cache check
+        if: steps.pip-cache.outputs.cache-hit != 'true'
+        run: echo "Using pip cache"
 
       - name: Install packages
         run: |
