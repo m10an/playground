@@ -1,5 +1,5 @@
 stages:
-  run:
+  train:
     cmd: >-
       python -m tblr.bin.train
       --data ${train.data}
@@ -10,6 +10,8 @@ stages:
     deps:
       - ${train.data}
     params:
-      - train.constant
+      - test_size
+      - const
+      - seed
     outs:
       - ${train.output_scores}
