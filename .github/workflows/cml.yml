@@ -6,12 +6,14 @@ jobs:
     container: docker://dvcorg/cml-py3:latest
     steps:
       - uses: actions/checkout@v2
-      - name: cml_run
-        env:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: pip_install
         run: |
-          # Your ML workflow goes here
           pip install -r requirements.txt
           pip install -e .
-          dvc pull
+      - name: dvc_pull
+        run: dvc pull
           python -m tblr.cmd.run
+      - name: run
+        run: python -m tblr.cmd.run
