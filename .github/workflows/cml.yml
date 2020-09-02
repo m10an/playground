@@ -15,6 +15,5 @@ jobs:
           pip install -e .
       - name: Pull data
         run: dvc pull
-          python -m tblr.cmd.run
       - name: Run
         run: python -m tblr.cmd.run
