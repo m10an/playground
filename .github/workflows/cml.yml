@@ -1,0 +1,30 @@
+name: run
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Install packages
+        run: |
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Pull data
+        run: dvc pull
+
+      - name: Run
+        run: python -m tblr.cmd.run
+
