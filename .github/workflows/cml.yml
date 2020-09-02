@@ -7,8 +7,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: pip_install
-      env:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
           pip install -e .
