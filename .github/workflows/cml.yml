@@ -3,8 +3,12 @@ on: [push]
 jobs:
   run:
     runs-on: [ubuntu-latest]
-    container: docker://dvcorg/cml-py3:latest
     steps:
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
       - name: Checkout
         uses: actions/checkout@v2
         env:
@@ -17,10 +21,42 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
+      - name: Get pip cache dir
+        id: get-pip-cache
+        run: |
+          echo "::debug::Using pip cache at $(pip cache dir)"
+          echo "::set-output name=dir::$(pip cache dir)"
+
+      - name: Pip cache
+        id: pip-cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.get-pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Pip cache check
+        if: steps.pip-cache.outputs.cache-hit == 'true'
+        run: echo "Using pip cache"
+
       - name: Install packages
         run: |
+          echo "::group::Requirements"
           pip install -r requirements.txt
+          echo "::endgroup::"
+          echo "::group::Package"
           pip install -e .
+          echo "::endgroup::"
+
+      - name: Data cache
+        id: data-cache
+        uses: actions/cache@v2
+        with:
+          path: .dvc/cache
+          key: data-${{ hashFiles('data/**/*') }}
+
+      - name: Data cache check
+        if: steps.data-cache.outputs.cache-hit == 'true'
+        run: echo "Using cached data"
 
       - name: Pull data
         run: dvc pull
