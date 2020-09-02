@@ -20,13 +20,14 @@ jobs:
       - name: Get pip cache dir
         id: pip-cache
         run: |
+          echo "::debug:: Using pip cache at $(pip cache dir)"
           echo "::set-output name=dir::$(pip cache dir)"
 
       - name: Pip cache
         uses: actions/cache@v2
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
