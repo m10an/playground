@@ -1,18 +1,18 @@
 vars:
   - files:
-    - train:
-      - data: data/raw/train.csv
-      - output_scores: scores.json
+      train:
+        data: data/raw/train.csv
+        output_scores: scores.json
 
 stages:
   train:
     cmd: >-
       python -m tblr.bin.train
-      --data ${files.train.data}
       --test_size ${train.test_size}
-      --const ${train.const}
-      --seed ${train.seed}
-      --output_scores ${train.output_scores}
+      --const     ${train.const}
+      --seed      ${train.seed}
+      --data          ${files.train.data}
+      --output_scores ${files.train.output_scores}
     deps:
       - ${files.train.data}
     params:
