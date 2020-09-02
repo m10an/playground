@@ -18,6 +18,12 @@ jobs:
           aws-region: eu-central-1
 
       - name: Install packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
         run: |
           pip install -r requirements.txt
           pip install -e .
