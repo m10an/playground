@@ -1,4 +1,6 @@
 import json
+import sys
+
 import pandas as pd
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split
@@ -17,7 +19,7 @@ class Args:
 
 def main():
     parser = AnnotatedArgumentParser(Args)
-    args: Args = parser.parse_args()
+    args: Args = parser.parse_args(sys.argv[1:])
 
     # Load in the data
     x_full = pd.read_csv(args.data)
@@ -37,5 +39,5 @@ def main():
         json.dump(scores, f)
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     main()
