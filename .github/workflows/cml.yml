@@ -1,4 +1,4 @@
-name: run
+name: Run pipeline
 on: [push]
 jobs:
   run:
@@ -61,6 +61,10 @@ jobs:
       - name: Pull data
         run: dvc pull
 
-      - name: Run
-        run: python tblr/bin/train.py
+      - name: Run pipeline
+        run: |
+          dvc repro
+          dvc push
 
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7

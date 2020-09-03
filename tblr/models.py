@@ -1,6 +1,9 @@
 from typing import Any
+from sklearn.linear_model import LinearRegression
 from numpy import ndarray
 import numpy as np
+
+__all__ = ['ConstantModel', 'LinearRegressionModel']
 
 
 class Model:
@@ -18,7 +21,7 @@ class SciKitModel(Model):
         self._model.fit(x, y, **kwargs)
 
     def predict(self, x: ndarray, **kwargs):
-        return self._model.fit(x, **kwargs)
+        return self._model.predict(x, **kwargs)
 
 
 class ConstantModel(Model):
@@ -30,4 +33,8 @@ class ConstantModel(Model):
 
     def predict(self, x: ndarray, **kwargs):
         return np.zeros(x.shape[0]) + self._constant
- 
+
+
+class LinearRegressionModel(SciKitModel):
+    def __init__(self, **kwargs):
+        self._model = LinearRegression(**kwargs)
