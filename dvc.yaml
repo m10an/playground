@@ -19,5 +19,6 @@ stages:
       - train.test_size
       - train.const
       - train.seed
-    outs:
-      - ${files.train.output_scores}
+    metrics:
+      - ${files.train.output_scores}:
+          cache: false
