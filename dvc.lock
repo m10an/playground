@@ -8,14 +8,14 @@ stages:
       md5: 59e2c168714c6aef5dbd2c33db1c8a47
       size: 903782547
     - path: tblr
-      md5: 2f3ce0a01a61b915be51c04c6a86e5b4.dir
-      size: 8401
-      nfiles: 10
+      md5: 5170ea0d65a3aacc05b54022b578e7ef.dir
+      size: 6979
+      nfiles: 8
     params:
       params.yaml:
         train.seed: 42
         train.test_size: 0.2
     outs:
     - path: scores.json
-      md5: 90f3be8cec40f807099aeff681698aa9
+      md5: 1d8f4ed4d0f52c70622ef3ab22943808
       size: 31
