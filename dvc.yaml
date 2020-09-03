@@ -7,13 +7,14 @@ vars:
 stages:
   train:
     cmd: >-
-      python -m tblr.bin.train
+      python tblr/bin/train.py
       --test_size ${train.test_size}
       --seed      ${train.seed}
       --data          ${files.train.data}
       --output_scores ${files.train.output_scores}
     deps:
       - ${files.train.data}
+      - tblr
     params:
       - train.test_size
       - train.seed
