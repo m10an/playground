@@ -1,18 +1,17 @@
 schema: '2.0'
 stages:
   train:
-    cmd: python -m tblr.bin.train --test_size 0.2 --const     0.51 --seed      42
-      --data          data/raw/train.csv --output_scores scores.json
+    cmd: python -m tblr.bin.train --test_size 0.2 --seed      42 --data          data/raw/train.csv
+      --output_scores scores.json
     deps:
     - path: data/raw/train.csv
       md5: 59e2c168714c6aef5dbd2c33db1c8a47
       size: 903782547
     params:
       params.yaml:
-        train.const: 0.51
         train.seed: 42
         train.test_size: 0.2
     outs:
     - path: scores.json
-      md5: 3e9b49569289b0980ec287f112eca60e
-      size: 16
+      md5: 90f3be8cec40f807099aeff681698aa9
+      size: 31

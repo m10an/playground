@@ -9,7 +9,6 @@ stages:
     cmd: >-
       python -m tblr.bin.train
       --test_size ${train.test_size}
-      --const     ${train.const}
       --seed      ${train.seed}
       --data          ${files.train.data}
       --output_scores ${files.train.output_scores}
@@ -17,7 +16,6 @@ stages:
       - ${files.train.data}
     params:
       - train.test_size
-      - train.const
       - train.seed
     metrics:
       - ${files.train.output_scores}:
