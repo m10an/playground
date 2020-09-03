@@ -62,5 +62,5 @@ jobs:
         run: dvc pull
 
       - name: Run
-        run: python -m tblr.cmd.run
+        run: python tblr/bin/train.py
 
