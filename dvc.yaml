@@ -16,8 +16,8 @@ stages:
     deps:
       - ${files.train.data}
     params:
-      - test_size
-      - const
-      - seed
+      - train.test_size
+      - train.const
+      - train.seed
     outs:
       - ${files.train.output_scores}
