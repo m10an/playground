@@ -9,7 +9,7 @@ from tblr.utils import AnnotatedArgumentParser
 
 class Args:
     data: str
-    test_size: int
+    test_size: float
     const: float
     seed: int
     output_scores: str
