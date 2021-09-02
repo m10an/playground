@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from typing import Type, get_type_hints, get_origin
+from typing import Type, get_type_hints, get_origin, Optional, Sequence, Any
 
 __all__ = ['AnnotatedArgumentParser']
 
@@ -21,3 +21,6 @@ class AnnotatedArgumentParser(ArgumentParser):
                               type=get_origin(hint),
                               dest=flag,
                               default=default_value)
+
+    def parse_args(self, args: Optional[Sequence[str]] = ...) -> Any:
+        return super(AnnotatedArgumentParser, self).parse_args(args)
