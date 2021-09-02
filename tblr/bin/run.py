@@ -8,7 +8,7 @@ from tblr.utils import AnnotatedArgumentParser
 
 
 class Args:
-    train: str
+    data: str
     test_size: int
     const: float
     seed: int
@@ -20,7 +20,7 @@ def main():
     args: Args = parser.parse_args()
 
     # Load in the data
-    x_full = pd.read_csv(args.train)
+    x_full = pd.read_csv(args.data)
     y_full = x_full.pop('claim')
     x_train, x_test, y_train, y_test = train_test_split(x_full, y_full,
                                                         test_size=args.test_size,
